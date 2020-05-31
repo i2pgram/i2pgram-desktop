@@ -570,7 +570,7 @@ void Messenger::resetAuthorizationKeys() {
 
 void Messenger::startLocalStorage() {
 	_dcOptions = std::make_unique<MTP::DcOptions>();
-	_dcOptions->constructFromBuiltIn();
+	_dcOptions->constructFromStatics();
 	Local::start();
 	subscribe(_dcOptions->changed(), [this](const MTP::DcOptions::Ids &ids) {
 		Local::writeSettings();

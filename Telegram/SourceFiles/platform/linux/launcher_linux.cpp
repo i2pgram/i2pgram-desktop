@@ -85,6 +85,9 @@ bool Launcher::launchUpdater(UpdaterLaunch action) {
 		argumentsList.push("-testmode");
 	}
 #ifndef TDESKTOP_DISABLE_AUTOUPDATE
+#define TDESKTOP_DISABLE_AUTOUPDATE
+#endif
+#ifndef TDESKTOP_DISABLE_AUTOUPDATE
 	if (Core::UpdaterDisabled()) {
 		argumentsList.push("-externalupdater");
 	}

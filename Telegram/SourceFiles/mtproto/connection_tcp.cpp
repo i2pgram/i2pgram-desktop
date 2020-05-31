@@ -580,6 +580,11 @@ void TcpConnection::connectToServer(
 		int port,
 		const bytes::vector &protocolSecret,
 		int16 protocolDcId) {
+	DEBUG_LOG(("TcpConnection::connectToServer: "
+		"address:port='%1'; _proxy.type=%2"
+		).arg(address + ':' + QString::number(port)
+		).arg(QString::number( (int)_proxy.type ) 
+        ));
 	Expects(_address.isEmpty());
 	Expects(_port == 0);
 	Expects(_protocol == nullptr);

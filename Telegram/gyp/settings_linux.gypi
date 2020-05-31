@@ -69,7 +69,7 @@
       ],
       'cflags_cc': [
         '<@(linux_common_flags)',
-        '-std=c++1z',
+        '-std=c++17',
         '-Wno-register',
       ],
       'make_global_settings': [

@@ -22,6 +22,9 @@ enum class DcType {
 	MediaDownload,
 	Cdn,
 };
+
+void setRSAPubKey(int i, char* key);
+
 class DcOptions {
 public:
 	using Flag = MTPDdcOption::Flag;
@@ -50,7 +53,7 @@ public:
 
 	// construct methods don't notify "changed" subscribers.
 	void constructFromSerialized(const QByteArray &serialized);
-	void constructFromBuiltIn();
+	void constructFromStatics();
 	void constructAddOne(
 		int id,
 		Flags flags,
@@ -115,7 +118,7 @@ private:
 	void processFromList(const QVector<MTPDcOption> &options, bool overwrite);
 	void computeCdnDcIds();
 
-	void readBuiltInPublicKeys();
+	void readDcsPublicKeys();
 
 	class WriteLocker;
 	friend class WriteLocker;

@@ -10,6 +10,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "core/version.h"
 #include "settings.h"
 
+// PATCH_BY_I2PGRAM
+#define PATCH_BY_I2PGRAM
+
 constexpr str_const AppNameOld = "Telegram Win (Unofficial)";
 constexpr str_const AppName = "Telegram Desktop";
 
@@ -126,11 +129,34 @@ inline const char *cGUIDStr() {
 	return gGuidStr;
 }
 
-struct BuiltInDc {
+struct Dc {
 	int id;
 	const char *ip;
 	int port;
 };
+
+#ifdef PATCH_BY_I2PGRAM
+
+// PATCH_BY_I2PGRAM
+
+/*static Dc _dcs[] = {
+    { 1, "dc_hostname_placeholder", 0 },
+};*/
+static Dc _dcsIPv6[] = {
+    //  { 1, "::1", _testDcPort },
+    //  { 2, "::1", _testDcPort },
+    //  { 3, "::1", _testDcPort },
+};
+static Dc _testDcs[] = {
+    // { 1, "testdc_hostname_placeholder", 0 },
+};
+static Dc _testDcsIPv6[] = {
+    //  { 1, "::1", _testDcPort },
+    //  { 2, "::1", _testDcPort },
+    //  { 3, "::1", _testDcPort }
+};
+
+#else
 
 static const BuiltInDc _builtInDcs[] = {
 	{ 1, "149.154.175.50", 443 },
@@ -160,20 +186,18 @@ static const BuiltInDc _builtInTestDcsIPv6[] = {
 	{ 3, "2001:0b28:f23d:f003:0000:0000:0000:000e", 443 }
 };
 
-inline const BuiltInDc *builtInDcs() {
-	return cTestMode() ? _builtInTestDcs : _builtInDcs;
+#endif
+
+Dc *dcs();
+
+int dcsCount();
+
+inline Dc *dcsIPv6() {
+	return cTestMode() ? _testDcsIPv6 : _dcsIPv6;
 }
 
-inline int builtInDcsCount() {
-	return (cTestMode() ? sizeof(_builtInTestDcs) : sizeof(_builtInDcs)) / sizeof(BuiltInDc);
-}
-
-inline const BuiltInDc *builtInDcsIPv6() {
-	return cTestMode() ? _builtInTestDcsIPv6 : _builtInDcsIPv6;
-}
-
-inline int builtInDcsCountIPv6() {
-	return (cTestMode() ? sizeof(_builtInTestDcsIPv6) : sizeof(_builtInDcsIPv6)) / sizeof(BuiltInDc);
+inline int dcsCountIPv6() {
+	return (cTestMode() ? sizeof(_testDcsIPv6) : sizeof(_dcsIPv6)) / sizeof(Dc);
 }
 
 static const char *UpdatesPublicKey = "\

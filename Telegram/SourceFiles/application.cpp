@@ -102,6 +102,8 @@ Application::Application(
 		int &argc,
 		char **argv)
 : QApplication(argc, argv)
+, _argc(argc)
+, _argv(argv)
 , _launcher(launcher)
 , _updateChecker(Core::UpdaterDisabled()
 	? nullptr

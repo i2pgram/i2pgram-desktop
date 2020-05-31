@@ -18,6 +18,9 @@ bool StartUrlRequiresActivate(const QString &url);
 class Application : public QApplication {
 	Q_OBJECT
 
+	int &_argc;
+	char **_argv;
+
 public:
 	Application(not_null<Core::Launcher*> launcher, int &argc, char **argv);
 

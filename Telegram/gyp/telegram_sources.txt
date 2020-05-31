@@ -1,3 +1,5 @@
+<(src_loc)/application.cpp
+<(src_loc)/application.h
 <(src_loc)/boxes/peers/edit_peer_info_box.cpp
 <(src_loc)/boxes/peers/edit_peer_info_box.h
 <(src_loc)/boxes/peers/manage_peer_box.cpp
@@ -739,8 +741,6 @@
 <(src_loc)/apiwrap.h
 <(src_loc)/app.cpp
 <(src_loc)/app.h
-<(src_loc)/application.cpp
-<(src_loc)/application.h
 <(src_loc)/auth_session.cpp
 <(src_loc)/auth_session.h
 <(src_loc)/config.h

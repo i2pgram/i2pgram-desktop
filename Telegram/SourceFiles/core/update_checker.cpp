@@ -42,6 +42,9 @@ constexpr auto kMaxResponseSize = 1024 * 1024;
 constexpr auto kMaxUpdateSize = 256 * 1024 * 1024;
 constexpr auto kChunkSize = 128 * 1024;
 
+#ifndef TDESKTOP_DISABLE_AUTOUPDATE
+#define TDESKTOP_DISABLE_AUTOUPDATE
+#endif
 #ifdef TDESKTOP_DISABLE_AUTOUPDATE
 bool UpdaterIsDisabled = true;
 #else // TDESKTOP_DISABLE_AUTOUPDATE

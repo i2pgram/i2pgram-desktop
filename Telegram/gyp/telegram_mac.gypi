@@ -197,7 +197,7 @@
       ],
     },
     'defines': [
-      'TDESKTOP_DISABLE_AUTOUPDATE',
+      # 'TDESKTOP_DISABLE_AUTOUPDATE',
       'OS_MAC_STORE',
     ],
     'postbuilds': [{

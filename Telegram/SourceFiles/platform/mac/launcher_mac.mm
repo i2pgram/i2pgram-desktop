@@ -127,6 +127,9 @@ bool Launcher::launchUpdater(UpdaterLaunch action) {
 		if (cStartInTray()) [args addObject:@"-startintray"];
 		if (cTestMode()) [args addObject:@"-testmode"];
 #ifndef TDESKTOP_DISABLE_AUTOUPDATE
+#define TDESKTOP_DISABLE_AUTOUPDATE
+#endif
+#ifndef TDESKTOP_DISABLE_AUTOUPDATE
 		if (Core::UpdaterDisabled()) [args addObject:@"-externalupdater"];
 #endif // !TDESKTOP_DISABLE_AUTOUPDATE
 		if (cDataFile() != qsl("data")) {

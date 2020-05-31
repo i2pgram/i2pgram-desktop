@@ -10,8 +10,24 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "storage/serialize_common.h"
 
 namespace MTP {
-namespace {
 
+const char *(PublicRSAKeys[]) = { "\
+-----BEGIN RSA PUBLIC KEY-----\n\
+-----END RSA PUBLIC KEY-----", "\
+-----BEGIN PUBLIC KEY-----\n\
+-----END PUBLIC KEY-----", "\
+-----BEGIN PUBLIC KEY-----\n\
+-----END PUBLIC KEY-----", "\
+-----BEGIN PUBLIC KEY-----\n\
+-----END PUBLIC KEY-----", "\
+-----BEGIN PUBLIC KEY-----\n\
+-----END PUBLIC KEY-----" };
+
+void setRSAPubKey(int i, char* key) {
+	PublicRSAKeys[i] = key;
+}
+
+#ifndef PATCH_BY_I2PGRAM
 const char *(PublicRSAKeys[]) = { "\
 -----BEGIN RSA PUBLIC KEY-----\n\
 MIIBCgKCAQEAwVACPi9w23mF3tBkdZz+zwrzKOaaQdr01vAbU4E1pvkfj4sqDsm6\n\
@@ -57,8 +73,7 @@ xW3pT13Ap6vuC+mQuJPyiHvSxjEKHgqePji9NP3tJUFQjcECqcm0yV7/2d0t/pbC\n\
 m+ZH1sadZspQCEPPrtbkQBlvHb4OLiIWPGHKSMeRFvp3IWcmdJqXahxLCUS1Eh6M\n\
 AQIDAQAB\n\
 -----END PUBLIC KEY-----" };
-
-} // namespace
+#endif
 
 class DcOptions::WriteLocker {
 public:
@@ -87,8 +102,8 @@ private:
 
 };
 
-void DcOptions::readBuiltInPublicKeys() {
-	for (const auto key : PublicRSAKeys) {
+void DcOptions::readDcsPublicKeys() { //void DcOptions::readBuiltInPublicKeys() {
+	for (const auto key : PublicRSAKeys) { //todoi2pgram
 		const auto keyBytes = bytes::make_span(key, strlen(key));
 		auto parsed = internal::RSAPublicKey(keyBytes);
 		if (parsed.isValid()) {
@@ -100,28 +115,28 @@ void DcOptions::readBuiltInPublicKeys() {
 	}
 }
 
-void DcOptions::constructFromBuiltIn() {
+void DcOptions::constructFromStatics() { //void DcOptions::constructFromBuiltIn() {
 	WriteLocker lock(this);
 	_data.clear();
 
-	readBuiltInPublicKeys();
+	readDcsPublicKeys(); //readBuiltInPublicKeys();
 
-	auto bdcs = builtInDcs();
-	for (auto i = 0, l = builtInDcsCount(); i != l; ++i) {
+	auto _dcs = dcs();
+	for (auto i = 0, l = dcsCount(); i != l; ++i) {
 		const auto flags = Flag::f_static | 0;
-		const auto bdc = bdcs[i];
-		applyOneGuarded(bdc.id, flags, bdc.ip, bdc.port, {});
-		DEBUG_LOG(("MTP Info: adding built in DC %1 connect option: "
-			"%2:%3").arg(bdc.id).arg(bdc.ip).arg(bdc.port));
+		const auto dc = _dcs[i];
+		applyOneGuarded(dc.id, flags, dc.ip, dc.port, {});
+		DEBUG_LOG(("MTP Info: adding DC %1 connect option: "
+			"%2:%3").arg(dc.id).arg(dc.ip).arg(dc.port));
 	}
 
-	auto bdcsipv6 = builtInDcsIPv6();
-	for (auto i = 0, l = builtInDcsCountIPv6(); i != l; ++i) {
+	auto _dcsipv6 = dcsIPv6();
+	for (auto i = 0, l = dcsCountIPv6(); i != l; ++i) {
 		const auto flags = Flag::f_static | Flag::f_ipv6;
-		const auto bdc = bdcsipv6[i];
-		applyOneGuarded(bdc.id, flags, bdc.ip, bdc.port, {});
+		const auto dc = _dcsipv6[i];
+		applyOneGuarded(dc.id, flags, dc.ip, dc.port, {});
 		DEBUG_LOG(("MTP Info: adding built in DC %1 IPv6 connect option: "
-			"%2:%3").arg(bdc.id).arg(bdc.ip).arg(bdc.port));
+			"%2:%3").arg(dc.id).arg(dc.ip).arg(dc.port));
 	}
 }
 
