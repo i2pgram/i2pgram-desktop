@@ -1,5 +1,35 @@
 # i2pgram Messenger
 
+```
+<Дремучесть> x, и2п клиент для десткопа ща дам
+<Дремучесть> на цпп qt
+<Дремучесть> https://github.com/i2pgram/i2pgram-desktop/blob/dev1/Telegram/SourceFiles/main.cpp#L277
+<Дремучесть> https://github.com/i2pgram/i2pgram-desktop
+<Дремучесть> я там комманд лайн опции добавил
+<Дремучесть> вот print_usage() 
+https://github.com/i2pgram/i2pgram-desktop/blob/dev1/Telegram/SourceFiles/main.cpp#L120
+<x> а как собтирать?
+<Дремучесть> вот устаревшая билд дока 
+https://github.com/i2pgram/i2pgram-clients/blob/master/tdesktop/BUILD_INSTRUCTIONS.md
+<Дремучесть> и вот оригинальная телеграмовская
+https://github.com/i2pgram/i2pgram-desktop/blob/dev1/docs/building-cmake.md
+<Дремучесть> нада привести в порядок билд доку
+<x> че 14.04 надо ставить что ли?
+<Дремучесть> сборщик клиента да на древней убунте
+<Дремучесть> работает типа на всех новее
+<Дремучесть> экзешник
+
+<Дремучесть> dc host port можно 127.0.0.1 указывать, пашет мы проверяли
+<Дремучесть> но группу мы не создавали
+<Дремучесть> но коннектится и чёта там шлёт
+<Дремучесть> успешно логинится
+<Дремучесть> вот эти два публ. ключа проносятся в потрох телеги тут 
+https://github.com/i2pgram/i2pgram-desktop/blob/dev1/Telegram/SourceFiles/main.cpp#L150
+<Дремучесть> MTP::setRSAPubKey(index, strdup(buf.c_str()));
+<Дремучесть> ща примеры пуб.ключей дам
+<Дремучесть> вот какие-то https://github.com/i2pgram/i2pgram-clients/blob/master/tdesktop/dc_options.cpp.diff
+```
+
 OLDER INFO BELOW
 
 This is the complete source code and the build instructions for the alpha version of the official desktop client for the [Telegram][telegram] messenger, based on the [Telegram API][telegram_api] and the [MTProto][telegram_proto] secure protocol.
