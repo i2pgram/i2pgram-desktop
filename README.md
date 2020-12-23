@@ -1,4 +1,4 @@
-# i2pgram Messenger
+# i2pgram client for desktop
 
 ```
 <Дремучесть> x, и2п клиент для десткопа ща дам
